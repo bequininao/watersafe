@@ -9,14 +9,19 @@ export class GeminiService {
 
   constructor() {
     // IMPORTANT: This relies on `process.env.API_KEY` being set in the environment.
-    if (process.env.API_KEY) {
+    // FIX: Check for `process` to avoid ReferenceError in browser environments where it's not defined.
+    if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
       this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    } else {
+      // Log a warning for the developer if the key is missing.
+      console.warn("Gemini API key not found in `process.env.API_KEY`. AI features will be disabled.");
     }
   }
 
   async getInsights(temperature: number, humidity: number): Promise<string> {
     if (!this.ai) {
-      return Promise.reject(new Error('API key is not configured.'));
+      // Keep error message in Spanish for UI consistency.
+      return Promise.reject(new Error('La clave API de Gemini no está configurada.'));
     }
 
     const prompt = `
