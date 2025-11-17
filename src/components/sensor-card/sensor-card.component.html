@@ -1,0 +1,25 @@
+<div [class]="'h-full bg-gray-800 rounded-lg p-6 flex flex-col justify-between border-2 transition-colors duration-300 ' + cardColorClass()">
+  <div class="flex items-center justify-between text-gray-400">
+    <span class="font-medium">{{ label() }}</span>
+    @switch (icon()) {
+      @case ('thermometer') {
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11.25V3M12 11.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.25 9.75h-4.5" />
+        </svg>
+      }
+      @case ('droplet') {
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a5 5 0 01-.88-9.914A5.002 5.002 0 0112 6c1.63 0 3.12.784 4.07 2.016A5 5 0 0117 16" />
+        </svg>
+      }
+    }
+  </div>
+  <div class="text-center my-4">
+    <span [class]="'text-5xl font-bold ' + textColorClass()">{{ value().toFixed(1) }}</span>
+    <span class="text-2xl text-gray-400 ml-1">{{ unit() }}</span>
+  </div>
+  <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+      <div [class]="'h-full rounded-full transition-all duration-500 ' + (cardColorClass() === 'border-green-500' ? 'bg-green-500' : cardColorClass() === 'border-yellow-500' ? 'bg-yellow-500' : 'bg-red-500')" [style.width.%]="(value() > 100 ? 100 : value() < 0 ? 0 : value())"></div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="bg-gray-800 rounded-lg p-6 h-full flex flex-col">
+  <h2 class="text-xl font-semibold text-white mb-4">Mapa de Temperatura de Cultivos</h2>
+  <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 flex-grow">
+    @for (zone of zones(); track zone.zoneId) {
+      <div class="relative aspect-square bg-gray-900/50 rounded-lg flex flex-col justify-center items-center text-center p-2 overflow-hidden transform transition-transform hover:scale-105">
+        <!-- The transparent colored circle with glow effect -->
+        <div 
+          class="absolute inset-0 m-auto w-[85%] h-[85%] rounded-full transition-all duration-500"
+          [style]="getTempStyles(zone.ambientTemperatureC)">
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10">
+          <span class="font-bold text-white block truncate w-full" [title]="zone.cropType">{{ zone.cropType }}</span>
+          @if (zone.ambientTemperatureC !== null) {
+            <span class="text-2xl font-semibold text-gray-200 mt-1 block">{{ zone.ambientTemperatureC.toFixed(1) }}°C</span>
+          } @else {
+             <span class="text-xl font-bold text-yellow-300 mt-1 block">FALLO</span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

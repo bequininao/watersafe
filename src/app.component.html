@@ -1,0 +1,45 @@
+<main class="min-h-screen bg-gray-900 text-gray-100 font-sans p-4 sm:p-6 lg:p-8">
+  <div class="max-w-7xl mx-auto">
+    <app-header></app-header>
+    
+    <app-sensor-failure-warning [failedSensorCount]="failedSensorCount()"></app-sensor-failure-warning>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+      <!-- Sensor Cards -->
+      <div class="lg:col-span-1">
+        <app-sensor-card 
+          label="Temperatura Invernadero" 
+          [value]="temperature()" 
+          unit="°C"
+          icon="thermometer"
+          [thresholds]="{ warn: 28, danger: 32, low_warn: 10, low_danger: 5 }">
+        </app-sensor-card>
+      </div>
+
+      <div class="lg:col-span-1">
+        <app-sensor-card 
+          label="Humedad General" 
+          [value]="humidity()" 
+          unit="%"
+          icon="droplet"
+          [thresholds]="{ warn: 75, danger: 85, low_warn: 30, low_danger: 20 }">
+        </app-sensor-card>
+      </div>
+
+      <!-- AI Insights -->
+      <div class="md:col-span-2 lg:col-span-2">
+         <app-ai-insights [temperature]="temperature()" [humidity]="humidity()"></app-ai-insights>
+      </div>
+
+      <!-- NEW Crop Temperature Map -->
+      <div class="md:col-span-2 lg:col-span-2">
+        <app-crop-temperature-map [zones]="cropZones()"></app-crop-temperature-map>
+      </div>
+
+      <!-- EXISTING Crop Status -->
+      <div class="md:col-span-2 lg:col-span-2">
+        <app-crop-status [zones]="cropZones()"></app-crop-status>
+      </div>
+    </div>
+  </div>
+</main>

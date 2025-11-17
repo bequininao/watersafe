@@ -1,0 +1,5 @@
+{
+  "name": "Copy of Dashboard de Cultivos IoT",
+  "description": "Un dashboard IoT para monitorear sensores de temperatura y humedad para cultivos, con recomendaciones de IA.",
+  "requestFramePermissions": []
+}
